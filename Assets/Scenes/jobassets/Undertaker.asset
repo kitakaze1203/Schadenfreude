@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 968ab459e2eccee4cac00df25f27615c, type: 3}
+  m_Name: Undertaker
+  m_EditorClassIdentifier: Assembly-CSharp::JobData
+  job_name: undertaker
+  display_job_name: "\u846C\u5100\u5C4B"
+  attribute: 0
+  has_devil: 1
+  description: "\u8981\u306F\u970A\u5A92\u5E2B"

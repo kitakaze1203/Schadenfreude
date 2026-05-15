@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 968ab459e2eccee4cac00df25f27615c, type: 3}
+  m_Name: Doctor
+  m_EditorClassIdentifier: Assembly-CSharp::JobData
+  job_name: doctor
+  display_job_name: "\u533B\u8005"
+  attribute: 0
+  has_devil: 1
+  description: "\u30EC\u30A4\u30C8\u30AD\u30EB\u6301\u3061\u5F79\u8077\u3002\u846C\u5100\u5C4B\u304C\u751F\u304D\u3066\u308B\u3068\u6551\u6E08\u3057\u306B\u304F\u3044\u3002"
