@@ -31,9 +31,7 @@ public class UIManager : MonoBehaviour
         TextMeshProUGUI name = name_announce.GetComponent<TextMeshProUGUI>();
         name.text = $"あなたは{player.name}ですか";
         Button button = Instantiate(this.name_accept, this.canvas);
-        Debug.Log("wait");
         await button.OnClickAsync(this.GetCancellationTokenOnDestroy());
-        Debug.Log("push");
 
         Destroy(name_announce.gameObject);
         Destroy(button.gameObject);
