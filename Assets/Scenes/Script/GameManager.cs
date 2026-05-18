@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 
@@ -12,9 +13,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TMP_InputField member_name;
     public List<string> players_name = new List<string>();
     int total_member = 0;
+    int scene_statu; // 0=Nameset 1=StartGame 2=Discussion 3=Vote
 
     public void NameSet()
     {
+        scene_statu = 0;
         if (!string.IsNullOrEmpty(member_name.text))
         {
             players_name.Add(member_name.text);
@@ -28,6 +31,7 @@ public class GameManager : MonoBehaviour
     }
     public async void StartGame()
     {
+        scene_statu = 1;
         List<JobData> jobpool = CreateJobPool();
 
         JobSet(jobpool);
@@ -42,6 +46,36 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < players.Count; i++)
         {
             await uimanager.NameDisclosure(players[i]);
+            await uimanager.JobDisclosure(players[i]);
+            await uimanager.AttributeDisclosure(players[i]);
+        }
+        Discussion();
+    }
+
+    public async void Discussion()
+    {
+        scene_statu = 2;
+        await uimanager.DisscussionUI();
+        Vote();
+    }
+
+    public async void Vote()
+    {
+        scene_statu = 3;
+        List<string> vote_list = new List<string>();
+        
+        for(int i=0;i<players.Count;i++) { vote_list.Add(players[i].name); }
+        vote_list.Add("投票しない");
+        vote_list.Add("追放を終了");
+        for(int i = 0;i<players.Count;i++)
+        {
+            if (players[i].alive && !players[i].vote)
+            {
+                await uimanager.NameDisclosure(players[i]);
+                int vote_target = await uimanager.WhoVote(vote_list);
+                players[i].vote_id = vote_target;
+                players[i].vote = true;
+            }
         }
     }
 

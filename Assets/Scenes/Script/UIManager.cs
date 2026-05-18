@@ -4,6 +4,8 @@ using Cysharp.Threading.Tasks;
 using System.Threading.Tasks;
 using UnityEngine.UI;
 using System.Runtime.InteropServices;
+using NUnit.Framework;
+using System.Collections.Generic;
 
 public class UIManager : MonoBehaviour
 {
@@ -17,6 +19,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Button job_accept;
     [SerializeField] private GameObject attribute_announce;
     [SerializeField] private Button attribute_accept;
+    [SerializeField] private Button go_vote;
+    [SerializeField] private GameObject vote_list;
+    [SerializeField] private Button vote;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
     public void DestroyMemberName()
@@ -35,9 +40,6 @@ public class UIManager : MonoBehaviour
 
         Destroy(name_announce.gameObject);
         Destroy(button.gameObject);
-        
-        await JobDisclosure(player);
-        
     }
 
     public async Task JobDisclosure(Player player)
@@ -49,8 +51,6 @@ public class UIManager : MonoBehaviour
         await button.OnClickAsync(this.GetCancellationTokenOnDestroy());
         Destroy(button.gameObject);
         Destroy(job_text.gameObject);
-
-        await AttributeDisclosure(player);
     }
    
     public async Task AttributeDisclosure(Player player)
@@ -68,5 +68,26 @@ public class UIManager : MonoBehaviour
         await button.OnClickAsync(this.GetCancellationTokenOnDestroy());
         Destroy(button.gameObject);
         Destroy(attribute_text.gameObject);
+    }
+    public async Task DisscussionUI()
+    {
+        Button button = Instantiate(this.go_vote, this.canvas);
+        await button.OnClickAsync(this.GetCancellationTokenOnDestroy());
+        Destroy(button.gameObject);
+    }
+
+    public async Task<int> WhoVote(List<string> name)
+    {
+        GameObject vote_list = Instantiate(this.vote_list, this.canvas);
+        Dropdown dropdown = vote_list.GetComponent<Dropdown>();
+        dropdown.ClearOptions();
+        dropdown.AddOptions(name);
+        dropdown.value = 0;
+        Button button = Instantiate(this.vote, this.canvas);
+        await button.OnClickAsync(this.GetCancellationTokenOnDestroy());
+        int vote_target = dropdown.value;
+        Destroy(button.gameObject);
+        Destroy(dropdown.gameObject);
+        return vote_target;
     }
 }

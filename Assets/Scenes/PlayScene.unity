@@ -173,6 +173,9 @@ MonoBehaviour:
   job_accept: {fileID: 5227005768829441639, guid: 434a8b81180818342884c11d9be83cf7, type: 3}
   attribute_announce: {fileID: 3900480550093642636, guid: ea000e8ee43949c4796adf2ecb2196d0, type: 3}
   attribute_accept: {fileID: 4224663900701098311, guid: d234b084561a2364dbeae7c9abef0acd, type: 3}
+  go_vote: {fileID: 55441925787961271, guid: 4ae6d4516740ac644a7d29cc542d29cd, type: 3}
+  vote_list: {fileID: 2048466324967984371, guid: a5d5b2791170d6448971d6dcc3422061, type: 3}
+  vote: {fileID: 8880842636621685472, guid: 1318b5c9cf7028c44bf2d75c849bae02, type: 3}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -957,7 +960,7 @@ GameObject:
   - component: {fileID: 1462398404}
   - component: {fileID: 1462398403}
   m_Layer: 5
-  m_Name: AddButton
+  m_Name: Sign
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
