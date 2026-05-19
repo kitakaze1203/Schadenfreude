@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TMP_InputField member_name;
     public List<string> players_name = new List<string>();
     int total_member = 0;
+    int fin_game = 0;
+    int no_execute = 0;
     int scene_statu; // 0=Nameset 1=StartGame 2=Discussion 3=Vote
 
     public void NameSet()
@@ -64,7 +66,7 @@ public class GameManager : MonoBehaviour
         scene_statu = 3;
         List<string> vote_list = new List<string>();
         
-        for(int i=0;i<players.Count;i++) { vote_list.Add(players[i].name); }
+        for(int i=0;i<players.Count;i++) { if (players[i].alive) { vote_list.Add(players[i].name); } }
         vote_list.Add("投票しない");
         vote_list.Add("追放を終了");
         for(int i = 0;i<players.Count;i++)
@@ -73,11 +75,31 @@ public class GameManager : MonoBehaviour
             {
                 await uimanager.NameDisclosure(players[i]);
                 int vote_target = await uimanager.WhoVote(vote_list);
-                players[i].vote_id = vote_target;
+                if (vote_target < players.Count) { players[vote_target].was_voted++; }
+                else if (vote_target == players.Count) { no_execute++; }
+                else { fin_game++; }
                 players[i].vote = true;
             }
         }
+        execute();
     }
+
+    public void execute()
+    {
+        int execute_target=0;
+        for(int i=0;i<players.Count-1;i++){ if (players[i].was_voted < players[i+1].was_voted) { execute_target = i+1; }}
+        if(fin_game<no_execute)
+        {
+            if (no_execute < players[execute_target].was_voted) { Debug.Log($"{players[execute_target].name}は追放されました。"); }
+            else { Debug.Log($"誰も追放されませんでした"); }
+        }
+        else
+        {
+            if (fin_game < players[execute_target].was_voted) { Debug.Log($"{players[execute_target].name}は追放されました。"); }
+            else { Debug.Log("追放を終了します。"); }
+        }
+    }
+
 
     private List<JobData> CreateJobPool()
     {

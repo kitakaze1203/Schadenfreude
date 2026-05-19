@@ -13,7 +13,7 @@ public class Player
     public Attribute attribute { get; private set; }
     public string cod { get; private set; }
     public bool vote { get; set; }
-    public int vote_id { get; set; }
+    public int was_voted { get; set; }
 
     public Player(int my_id,string my_name,JobData get_job)
     {
@@ -23,13 +23,13 @@ public class Player
         this.alive = true;
         this.attribute =get_job.third ? Attribute.third : Attribute.villager;
         this.vote = false;
-        this.vote_id = -1;
+        this.was_voted = 0;
     }
 
     public void ResetTurn()
     {
         this.vote = false;
-        this.vote_id = -1;
+        this.was_voted = -1;
     }
 
     public void Die(string couse)
