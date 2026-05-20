@@ -80,7 +80,7 @@ public class UIManager : MonoBehaviour
     public async Task<int> WhoVote(List<string> name)
     {
         GameObject vote_list = Instantiate(this.vote_list, this.canvas);
-        Dropdown dropdown = vote_list.GetComponent<Dropdown>();
+        TMP_Dropdown dropdown = vote_list.GetComponent<TMPro.TMP_Dropdown>();
         dropdown.ClearOptions();
         dropdown.AddOptions(name);
         dropdown.value = 0;

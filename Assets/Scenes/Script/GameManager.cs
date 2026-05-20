@@ -58,24 +58,24 @@ public class GameManager : MonoBehaviour
     {
         scene_statu = 2;
         await uimanager.DisscussionUI();
-        Vote();
+        await Vote();
     }
 
-    public async void Vote()
+    public async Task Vote()
     {
         scene_statu = 3;
         List<string> vote_list = new List<string>();
-        
-        for(int i=0;i<players.Count;i++) { if (players[i].alive) { vote_list.Add(players[i].name); } }
+        foreach (Player player in players) if (player.alive) vote_list.Add(player.name);
         vote_list.Add("投票しない");
         vote_list.Add("追放を終了");
+        Debug.Log($"{vote_list}");
         for(int i = 0;i<players.Count;i++)
         {
             if (players[i].alive && !players[i].vote)
             {
                 await uimanager.NameDisclosure(players[i]);
                 int vote_target = await uimanager.WhoVote(vote_list);
-                if (vote_target < players.Count) { players[vote_target].was_voted++; }
+                if (vote_target < players.Count) players[vote_target].was_voted++;
                 else if (vote_target == players.Count) { no_execute++; }
                 else { fin_game++; }
                 players[i].vote = true;
@@ -87,7 +87,7 @@ public class GameManager : MonoBehaviour
     public void execute()
     {
         int execute_target=0;
-        for(int i=0;i<players.Count-1;i++){ if (players[i].was_voted < players[i+1].was_voted) { execute_target = i+1; }}
+        for(int i=0;i<players.Count-1;i++)if (players[i].was_voted < players[i+1].was_voted) execute_target = i+1;
         if(fin_game<no_execute)
         {
             if (no_execute < players[execute_target].was_voted) { Debug.Log($"{players[execute_target].name}は追放されました。"); }
