@@ -86,8 +86,9 @@ public class GameManager : MonoBehaviour
 
     public void execute()
     {
+        for (int i = 0; i < players.Count; i++) Debug.Log($"{players[i].was_voted}");
         int execute_target=0;
-        for(int i=0;i<players.Count-1;i++)if (players[i].was_voted < players[i+1].was_voted) execute_target = i+1;
+        for (int i = 0; i < players.Count - 1; i++) if (players[execute_target].was_voted < players[i + 1].was_voted) execute_target = i + 1;
         if(fin_game<no_execute)
         {
             if (no_execute < players[execute_target].was_voted) { Debug.Log($"{players[execute_target].name}は追放されました。"); }

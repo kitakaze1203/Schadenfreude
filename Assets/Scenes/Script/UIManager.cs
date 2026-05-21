@@ -87,6 +87,7 @@ public class UIManager : MonoBehaviour
         Button button = Instantiate(this.vote, this.canvas);
         await button.OnClickAsync(this.GetCancellationTokenOnDestroy());
         int vote_target = dropdown.value;
+        Debug.Log($"vote:{vote_target}");
         Destroy(button.gameObject);
         Destroy(dropdown.gameObject);
         return vote_target;
